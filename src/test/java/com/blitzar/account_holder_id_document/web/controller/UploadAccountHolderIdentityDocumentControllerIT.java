@@ -94,7 +94,7 @@ class UploadAccountHolderIdentityDocumentControllerIT implements LocalStackTestC
         var expectedS3ObjectKey = S3ObjectKeyBuilder.build(accountHolderId, file.getName());
         Assertions.assertThat(awsS3Operations.exists(expectedS3ObjectKey)).isTrue();
 
-        await().pollDelay(1, TimeUnit.SECONDS).untilAsserted(() -> {
+        await().pollDelay(100, TimeUnit.MILLISECONDS).untilAsserted(() -> {
             var receiveMessageResponse = sqsClient.receiveMessage(builder -> builder.queueUrl(accountHolderIdentityDocumentQueueURL).build());
             assertThat(receiveMessageResponse.messages().size()).isEqualTo(1);
 
@@ -127,7 +127,7 @@ class UploadAccountHolderIdentityDocumentControllerIT implements LocalStackTestC
         var nonExistentS3ObjectKey = S3ObjectKeyBuilder.build(accountHolderId, file.getName());
         Assertions.assertThat(awsS3Operations.exists(nonExistentS3ObjectKey)).isFalse();
 
-        await().pollDelay(1, TimeUnit.SECONDS).untilAsserted(() -> {
+        await().pollDelay(100, TimeUnit.MILLISECONDS).untilAsserted(() -> {
             var receiveMessageResponse = sqsClient.receiveMessage(builder -> builder.queueUrl(accountHolderIdentityDocumentQueueURL).build());
             assertThat(receiveMessageResponse.messages().size()).isEqualTo(0);
         });
