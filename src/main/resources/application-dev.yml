@@ -1,0 +1,9 @@
+aws:
+  access-key-id: ${AWS_ACCESS_KEY_ID:devAccessKeyId}
+  secret-key: ${AWS_SECRET_ACCESS_KEY:devSecretAccessKey}
+  region: ${AWS_DEFAULT_REGION:us-east-1}
+  services:
+    s3:
+      endpoint-override: ${AWS_S3_ENDPOINT:`http://127.0.0.1:4566`}
+    sqs:
+      endpoint-override: ${AWS_S3_ENDPOINT:`http://127.0.0.1:4566`}

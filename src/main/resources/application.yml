@@ -1,0 +1,28 @@
+micronaut:
+  banner: true
+  application:
+    name: account-holder-identity-documents
+  server:
+    port: 8074
+    multipart:
+      max-file-size: 20971520 # 20 * 1024 * 1024 = 20MB
+
+  jms:
+    sqs:
+      enabled: true
+
+  object-storage:
+    aws:
+      account-holder-identity-document:
+        bucket: blitzar-account-holder-identity-document
+
+aws:
+  access-key-id: ${AWS_ACCESS_KEY_ID}
+  secret-key: ${AWS_SECRET_ACCESS_KEY}
+  region: ${AWS_DEFAULT_REGION}
+  services:
+    s3:
+      endpoint-override: ${AWS_S3_ENDPOINT:}
+    sqs:
+      account-holder-identity-document-queue-name: 'account-holder-identity-document'
+      endpoint-override: ${AWS_SQS_ENDPOINT:}
